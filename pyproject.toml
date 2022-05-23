@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "apipillow"
+version = "1"
+description = "APi para manipular imagem"
+authors = ["Daniel Fernandes <danielfernandes202@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "3.10.2"
+Pillow = "^9.1.1"
+uvicorn = "^0.17.6"
+fastapi = "^0.78.0"
+
+[tool.poetry.dev-dependencies]
+Pillow = "^9.1.1"
+uvicorn = "^0.17.6"
+fastapi = "^0.78.0"
+python-multipart = "^0.0.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
