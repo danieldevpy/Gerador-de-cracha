@@ -3,6 +3,17 @@ import os
 import time
 
 
+def buscar_crachas():
+    root_folder = r'cracha_gerado/'
+    cpfs = []
+    retornar = ''
+    for root, dirs, files in os.walk(root_folder):
+        for file in files:
+            if file[0:11] not in cpfs:
+                cpfs.append(file[0:11])
+                retornar = f'{retornar},{file[0:11]}'
+    return retornar[1:]
+
 def redimensionar(name):
 
     img = Image.open(name)
@@ -19,9 +30,9 @@ def calcular(texto):
     return recalcular
 
 
-def new(unity, name, charge, cpf, rg, registration):
-    inicio = time.time()
-    path_image= f'crachas/{cpf}.png'
+def new(unity, name, charge, cpf, rg, registration, foto_user):
+    start = time.time()
+    path_image= rf'C:/xampp/htdocs/fotos/{foto_user}'
     redimensionar(path_image)
     color = (0, 0, 0)
     font = ImageFont.truetype(r'fontes/LinLibertine_R.ttf', 32)
@@ -43,7 +54,7 @@ def new(unity, name, charge, cpf, rg, registration):
         front.paste(image, (175, 345))
         verse = Image.open(r'crachas/cisbaf-verso.png')
 
-        resposta = 'cisbaf'
+        answer = 'cisbaf'
 
     elif unity == 'Upa':
         # caculando meio
@@ -59,7 +70,7 @@ def new(unity, name, charge, cpf, rg, registration):
         front.paste(image, (175, 305))
         verse = Image.open(r'crachas/upa-verso.png')
 
-        resposta = 'upa'
+        answer = 'upa'
 
     elif unity == 'Triagem':
         # caculando meio
@@ -75,7 +86,7 @@ def new(unity, name, charge, cpf, rg, registration):
         front.paste(image, (175, 345))
         verse = Image.open(r'crachas/triagem-verso.png')
 
-        resposta = 'Triagem'
+        answer = 'Triagem'
 
 
     # ativando modo desenho
@@ -89,13 +100,14 @@ def new(unity, name, charge, cpf, rg, registration):
     design_verse.text((coordRegistration), registration, font=font, fill=color)
     design_verse.text((coordCpf), cpf, font=font, fill=color)
     design_verse.text((coordRg), rg, font=font, fill=color)
-    front.save(rf'cracha_gerado/{cpf}-frente.png')
-    verse.save(rf'cracha_gerado/{cpf}-verso.png')
+
+    front.save(rf'cracha_gerado/{cpf.replace(".", "").replace("-", "")}-frente.png')
+    verse.save(rf'cracha_gerado/{cpf.replace(".", "").replace("-", "")}-verso.png')
     # removendo foto que foi usada da pasta raiz
     os.remove(path_image)
-    fim = time.time()
+    end = time.time()
 
-    return f'o cartão do {resposta} foi gerado! Finalizado em {str(inicio - fim)[1:4]} segundos'
+    return f'o cartão do {answer} foi gerado! Finalizado em {str(start - end)[1:4]} segundos'
 
 
 
