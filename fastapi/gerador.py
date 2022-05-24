@@ -3,19 +3,19 @@ import os
 import time
 
 
-def deletar_crachas(cpf):
-    cpfs = cpf.split(',')
+def deletar_crachas(values):
     root_folder = 'cracha_gerado'
-    result = {'Excluidos':'', 'NaoExistente':''}
-    for unity in cpfs:
+    result = {'Excluidos': ''}
+    for cpf in values:
         try:
-            os.remove(rf'{root_folder}/{unity}-frente.png')
-            os.remove(rf'{root_folder}/{unity}-verso.png')
-            result['Excluidos'] = result['Excluidos']+ unity + ','
+            os.remove(rf'{root_folder}/{cpf}-frente.png')
+            os.remove(rf'{root_folder}/{cpf}-verso.png')
+            result['Excluidos'] = result['Excluidos']+ cpf + ','
         except:
-            result['NaoExistente'] = result['NaoExistente'] + unity + ','
+            pass
 
     return result
+
 def buscar_crachas():
     root_folder = r'cracha_gerado/'
     cpfs = []

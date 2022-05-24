@@ -50,8 +50,9 @@ def post_cracha(gerar: Cracha):
     answer = gerador.new(gerar.unidade, gerar.nome, gerar.cargo, gerar.cpf, gerar.rg, gerar.matricula, gerar.foto)
     return answer
 
-@app.post('/cracha/{cpf}')
-def del_cracha(cpf:str):
-
-    answer = gerador.deletar_crachas(cpf)
+@app.post('/deletar')
+def del_cracha(values: list):
+    answer = gerador.deletar_crachas(values)
     return answer
+
+
