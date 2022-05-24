@@ -5,6 +5,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import gerador
 
+
+class Badge(BaseModel):
+    unity: str
+    name: str
+    job: str
+    cpf: str
+    rg: str
+    registration: str
+    photo: str
+
+
 origins = [
     "http://localhost/dados.php",
     "http://localhost",
@@ -22,37 +33,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class Cracha(BaseModel):
-    unidade: str
-    nome: str
-    cargo: str
-    cpf: str
-    rg: str
-    matricula: str
-    foto: str
-
 
 @app.get("/")
-def read_root():
+def start():
     return RedirectResponse('/docs')
 
 
-@app.get("/buscar")
-def get_crachas_gerados():
-    resposta = gerador.buscar_crachas()
-    return resposta
-
-
-
-@app.post('/gerar')
-def post_cracha(gerar: Cracha):
-
-    answer = gerador.new(gerar.unidade, gerar.nome, gerar.cargo, gerar.cpf, gerar.rg, gerar.matricula, gerar.foto)
+@app.get("/search")
+def search_badge():
+    answer = gerador.search()
     return answer
 
-@app.post('/deletar')
-def del_cracha(values: list):
-    answer = gerador.deletar_crachas(values)
+
+@app.post('/create')
+def create_badge(create: Badge):
+    answer = gerador.create(
+                    create.unity, create.name, create.job, create.cpf, create.rg, create.registration, create.photo)
+    return answer
+
+@app.post('/join')
+def join_badge(values: list):
+    answer = gerador.join(values)
+    return answer
+
+
+@app.post('/delete')
+def delete_badge(values: list):
+    answer = gerador.delete(values)
     return answer
 
 
