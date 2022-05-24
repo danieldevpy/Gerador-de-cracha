@@ -3,6 +3,19 @@ import os
 import time
 
 
+def deletar_crachas(cpf):
+    cpfs = cpf.split(',')
+    root_folder = 'cracha_gerado'
+    result = {'Excluidos':'', 'NaoExistente':''}
+    for unity in cpfs:
+        try:
+            os.remove(rf'{root_folder}/{unity}-frente.png')
+            os.remove(rf'{root_folder}/{unity}-verso.png')
+            result['Excluidos'] = result['Excluidos']+ unity + ','
+        except:
+            result['NaoExistente'] = result['NaoExistente'] + unity + ','
+
+    return result
 def buscar_crachas():
     root_folder = r'cracha_gerado/'
     cpfs = []
@@ -32,13 +45,13 @@ def calcular(texto):
 
 def new(unity, name, charge, cpf, rg, registration, foto_user):
     start = time.time()
-    path_image= rf'C:/xampp/htdocs/fotos/{foto_user}'
-    redimensionar(path_image)
+    #path_image= rf'C:/xampp/htdocs/fotos/{foto_user}'
+    #redimensionar(path_image)
     color = (0, 0, 0)
     font = ImageFont.truetype(r'fontes/LinLibertine_R.ttf', 32)
 
 
-    image = Image.open(path_image)
+    #image = Image.open(path_image)
 
     if unity == 'Cisbaf':
         # caculando meio
@@ -51,10 +64,9 @@ def new(unity, name, charge, cpf, rg, registration, foto_user):
 
         # abrindo frente do cracha
         front = Image.open(r'crachas/cisbaf-frente.png')
-        front.paste(image, (175, 345))
+       # front.paste(image, (175, 345))
         verse = Image.open(r'crachas/cisbaf-verso.png')
 
-        answer = 'cisbaf'
 
     elif unity == 'Upa':
         # caculando meio
@@ -67,10 +79,9 @@ def new(unity, name, charge, cpf, rg, registration, foto_user):
 
         # abrindo frente do cracha
         front = Image.open(r'crachas/upa-frente.png')
-        front.paste(image, (175, 305))
+        #front.paste(image, (175, 305))
         verse = Image.open(r'crachas/upa-verso.png')
 
-        answer = 'upa'
 
     elif unity == 'Triagem':
         # caculando meio
@@ -83,10 +94,8 @@ def new(unity, name, charge, cpf, rg, registration, foto_user):
 
         # abrindo frente do cracha
         front = Image.open(r'crachas/cisbaf-frente.png')
-        front.paste(image, (175, 345))
-        verse = Image.open(r'crachas/triagem-verso.png')
+        #front.paste(image, (175, 345))
 
-        answer = 'Triagem'
 
 
     # ativando modo desenho
@@ -104,10 +113,10 @@ def new(unity, name, charge, cpf, rg, registration, foto_user):
     front.save(rf'cracha_gerado/{cpf.replace(".", "").replace("-", "")}-frente.png')
     verse.save(rf'cracha_gerado/{cpf.replace(".", "").replace("-", "")}-verso.png')
     # removendo foto que foi usada da pasta raiz
-    os.remove(path_image)
+    #os.remove(path_image)
     end = time.time()
 
-    return f'o cartão do {answer} foi gerado! Finalizado em {str(start - end)[1:4]} segundos'
+    return f'o cartão de {name} foi gerado! Finalizado em {str(start - end)[1:4]} segundos'
 
 
 

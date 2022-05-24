@@ -1,5 +1,6 @@
 from typing import Union
 from fastapi import FastAPI, UploadFile, File
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import gerador
@@ -33,7 +34,7 @@ class Cracha(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return RedirectResponse('/docs')
 
 
 @app.get("/buscar")
@@ -47,4 +48,10 @@ def get_crachas_gerados():
 def post_cracha(gerar: Cracha):
 
     answer = gerador.new(gerar.unidade, gerar.nome, gerar.cargo, gerar.cpf, gerar.rg, gerar.matricula, gerar.foto)
+    return answer
+
+@app.post('/cracha/{cpf}')
+def del_cracha(cpf:str):
+
+    answer = gerador.deletar_crachas(cpf)
     return answer
