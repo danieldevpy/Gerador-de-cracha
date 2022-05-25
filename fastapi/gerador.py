@@ -49,12 +49,12 @@ def join(dados):
 
 def delete(values):
     root_folder = 'cracha_gerado'
-    result = {'Excluidos': ''}
+    result = {'Excluidos': []}
     for cpf in values:
         try:
             os.remove(rf'{root_folder}/{cpf}-frente.png')
             os.remove(rf'{root_folder}/{cpf}-verso.png')
-            result['Excluidos'] = result['Excluidos'] + cpf + ','
+            result['Excluidos'].append(cpf)
         except:
             pass
 
@@ -106,6 +106,7 @@ def create(unity, name, charge, cpf, rg, registration, photo_user):
         # abrindo frente do cracha
         front = Image.open(r'crachas/cisbaf-frente.png')
         front.paste(image, (175, 345))
+        verse = Image.open(r'crachas/triagem-verso.png')
 
     # ativando modo desenho
     design_front = ImageDraw.Draw(front)
