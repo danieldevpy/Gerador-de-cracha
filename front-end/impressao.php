@@ -25,12 +25,10 @@ body{
 	background-image: url('imgs/fundin.png');
 	background-size: cover;
 	background-repeat: repeat;	
-
 }
 label {
 	margin-bottom: 5px;
 }
-
 .campos{
 	height: 10%;
 	width: 800px;			
@@ -42,9 +40,6 @@ label {
 	box-shadow: 0 0 3em rgb(112, 94, 0);
 	background-color:#fafafa;
 	display: flex;
-	
-	
-	
 }
 .esquerdo{
 	width: 50%;
@@ -52,7 +47,6 @@ label {
 	flex-direction: column;
 	padding: 20px;
 	align-items: center;
-
 }
 .esquerdo img{
 	width: 50%;
@@ -64,11 +58,8 @@ label {
 	width: 80%;
 	line-height: 25px;
 }
-
 .ph6 h6{
-
 	font-size: 12px;
-
 }
 .direito{
 	width: 50%;
@@ -77,50 +68,39 @@ label {
 	padding: 20px;
 	border-radius: 10px;
 }
-
-#scales{
-	margin-top:5px;
-}
-
 p,a,label{
-
 	font-size: large;
 }
-
 .campos h1{
 	font-family: 'Roboto Condensed', sans-serif;
 	color: rgb(255, 208, 18); text-shadow: rgb(54, 54, 54) 0.1em 0.1em 0.1em;
 	font-size: 72px;
 }
-
 .arqv {
     display: flex;
     flex-direction: column;
     align-items: center;
 	flex-grow: 5;
-    
 }
 #checkb{
     width: 300px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     background-color: #c29305;
     margin-bottom: 5px;
-    gap: 20px;
     border-radius: 5px;
     padding: 5px;
 	height: 35px;
 	color: white;
-
 }
-
+#checkb label{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap:20px;
+}
 #checkb:hover{
-
-    background-color: #baa052;
-
-    
-
+    background-color: #ba8c00;
 }
 .button-39{
     width:85%;
@@ -129,13 +109,21 @@ p,a,label{
 	border:none;
 	border-radius:4px;
 }
-.button-39:hover{
-    background-color: black;
-
+.button-red{
+	background-color: red;
+	color:white;
 }
-	
+.button-red:hover{
+	background-color: #ed0000;
+}
 
-
+.button-green{
+	background-color: green;
+	color:white;
+}
+.button-green:hover{
+	background-color: #007200;
+}
 .divesp{
   margin-top: 3%;
 }
@@ -146,20 +134,11 @@ p,a,label{
 	overflow-y: scroll;
 }
 </style>
-
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 </head>
-
-
 <body>
 	<div class="divesp">
-	
 	</div>
-	
-
-<form method="post" id="form" action="juntar.php" enctype="multipart/form-data">
-
 	<div class="campos">
 		<div class="esquerdo">
 			<h1>CISBAF</h1>
@@ -196,19 +175,26 @@ p,a,label{
 							for(var i of errei){
 								var div = document.createElement("div");	
 								div.id = "checkb";
+
+								var label = document.createElement('label')
+
+
+
 								var input = document.createElement("input")
 								input.id= "scales";
 								input.value=`${i}`;
 								input.type="checkbox";
 
-								var texto = document.createElement("p");
-								div.innerText = `MATRICULA: ${i}`;
+								var texto = document.createElement("span");
+								texto.innerText = `Matricula: ${i}`;
 
+	
+								label.append(input)
+								label.append(texto)
+								div.append(label)
+							
 
-								div.append(input)
-
-								input.append(texto)
-
+							
 
 								document.getElementById("scroll").append(div)
 
@@ -227,9 +213,9 @@ p,a,label{
         
                 
                 <br>
-                <button class="button-39" onClick="mostrarSelecao();" type="button" style="background-color: green; color:white;">Juntar</button>
+                <button class="button-39 button-green" onClick="mostrarSelecao();" type="button">Juntar</button>
 				<br>
-                <button class="button-39" onClick="removerSelecao();" type="button" style="background-color: red; color:white;">Remover</button>
+                <button class="button-39 button-red" class="button-red" onClick="removerSelecao();" type="button" >Remover</button>
         
         </div>
         </div>

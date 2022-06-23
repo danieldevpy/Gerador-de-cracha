@@ -7,13 +7,20 @@ import datetime
 
 def search():
     root_folder = r'cracha_gerado/'
-    cpfs = []
+    registrations = []
     retornar = ''
     for root, dirs, files in os.walk(root_folder):
         for file in files:
-            if file[0:11] not in cpfs:
-                cpfs.append(file[0:11])
-                retornar = f'{retornar},{file[0:11]}'
+                if file[-5:-4] == 'e':
+                    if file[:-11] not in registrations:
+                        registrations.append(file[:-11])
+                        retornar = f'{retornar},{file[:-11]}'
+                else:
+                    if file[:-10] not in registrations:
+                        registrations.append(file[:-10])
+                        retornar = f'{retornar},{file[:-10]}'
+
+    print(registrations)
     return retornar[1:]
 
 
@@ -50,11 +57,11 @@ def join(dados):
 def delete(values):
     root_folder = 'cracha_gerado'
     result = {'Excluidos': []}
-    for cpf in values:
+    for registration in values:
         try:
-            os.remove(rf'{root_folder}/{cpf}-frente.png')
-            os.remove(rf'{root_folder}/{cpf}-verso.png')
-            result['Excluidos'].append(cpf)
+            os.remove(rf'{root_folder}/{registration}-frente.png')
+            os.remove(rf'{root_folder}/{registration}-verso.png')
+            result['Excluidos'].append(registration)
         except:
             pass
 
@@ -120,8 +127,8 @@ def create(unity, name, charge, cpf, rg, registration, photo_user):
     design_verse.text((coordCpf), cpf, font=font, fill=color)
     design_verse.text((coordRg), rg, font=font, fill=color)
 
-    front.save(rf'cracha_gerado/{cpf.replace(".", "").replace("-", "")}-frente.png')
-    verse.save(rf'cracha_gerado/{cpf.replace(".", "").replace("-", "")}-verso.png')
+    front.save(rf'cracha_gerado/{registration.replace(".", "").replace("-", "")}-frente.png')
+    verse.save(rf'cracha_gerado/{registration.replace(".", "").replace("-", "")}-verso.png')
     # removendo foto que foi usada da pasta raiz
     os.remove(path_image)
     end = time.time()

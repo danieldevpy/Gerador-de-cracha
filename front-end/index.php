@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" lang="PT-BR">
 <title>Gerar Cracha</title>
-
+<link rel="icon" type="imagem/png" href="/imgs/pythonpy.png" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400&family=Roboto+Condensed:ital,wght@1,700&display=swap');
@@ -151,6 +152,13 @@ label input{
   box-shadow: none;
 }
 
+.display-off{
+	display:none;
+}
+.display-on{
+	display:hidden;
+}
+
 </style>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -169,7 +177,8 @@ label input{
 		<div class="esquerdo">
 			<h1>CISBAF</h1>
 			<br>
-			<img src="imgs/cracha.png"></img>
+			<img src="imgs/cracha.png" class="myimg"></img>
+			<img src="imgs/verso.png" class="otimg" style="display:none;"></img>
 			<br>
 			<h6 class="ch6">Esse aplicativo foi desenvolvido para facilitar a criação de crachá's de forma simples e rápida, apenas preenchendo os dados do solicitante e escolhendo a unidade.</h6>
 			<br>
@@ -199,14 +208,14 @@ label input{
 		
 		<label for="cpf">
 		<p>CPF:</p>
-			<input type="text" name="cpf" maxlength="14" onkeydown="javascript: fMasc( this, mCPF );" required >
+			<input type="text" name="cpf" pattern=".{14,14}" maxlength="14" onkeydown="javascript: fMasc( this, mCPF );" required >
 		</label><br>
 		
 
 		
 		<label for="rg">
 		<p>RG:</p>
-			<input type="text" name="rg"  maxlength="12" onkeydown="javascript: fMasc( this, mCEP );" required >
+			<input type="text" name="rg"  pattern=".{12,12}" maxlength="12" onkeydown="javascript: fMasc( this, mCEP );" required >
 		</label>
 		
 		<label for="unidade">
@@ -242,26 +251,20 @@ label input{
 
 
 <script> 	
-	data = new Date()
-	var ano = data.getFullYear();
-	var mes = data.getMonth()+1;
-	var dia = data.getDate();
-	var hora = data.getHours();
-	var minuto = data.getMinutes();
-	var segundo = data.getSeconds();
 
-	if(dia.toString().length == 1) dia = '0'+dia;
-	if(mes.toString().length == 1) mes = '0'+mes;
+	var $JQuery2 = jQuery.noConflict()
+	$JQuery2(function() {
+   	   $JQuery2(".myimg").hover(
+      // função que adiciona a classe
+		function(){
+			$JQuery2(".otimg").removeClass("display-off");
 
+		},
+		// função que remove a classe
+		function(){
 
-	if(hora.toString().length == 1) hora = '0'+hora;
-	if(minuto.toString().length == 1) minuto = '0'+minuto;
-	if(segundo.toString().length == 1) segundo = '0'+segundo;
-
-	var datacompleta = +hora+minuto+segundo;
-
-
-	console.log(datacompleta);
+		});
+});
 	
 </script>
 <script src="srx.js" > </script>
